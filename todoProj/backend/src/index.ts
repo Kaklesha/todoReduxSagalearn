@@ -1,9 +1,10 @@
-import express, { Request, Response } from "express";
+import Express, { Request, Response } from "express";
 import cors from "cors";
 
 //import { User } from './types/User';
 
-const app = express();
+const app = Express();
+app.use(Express.urlencoded({ extended: true }));
 const PORT = 3000;
 
 export interface User {
@@ -45,6 +46,31 @@ app.get("/users", (req: Request, res: Response) => {
 app.get("/tasks", (req: Request, res: Response) => {
   res.json(tasks);
 });
+// export interface TypedRequestBody<T> extends Express.Request {
+//   body: T
+// }
+
+import { Query } from 'express-serve-static-core';
+
+export interface TypedRequestQuery<T extends Query> extends Express.Request {
+
+     body: T
+
+}
+
+
+app.post(
+  "/tasks",
+  function (
+    req: TypedRequestQuery<{ username: string, password: string }>,
+    res: Express.Response
+  ) {
+    const success = req.body.username === "foo" && req.body.password === "bar";
+    
+    res.status(200).json({ Success: success });
+   // res.status(500).send('Something broke!')
+  }
+);
 
 app.use(cors());
 // Запуск сервера
