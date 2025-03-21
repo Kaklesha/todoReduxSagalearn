@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { fetchUsersSuccess, fetchUsersFailure, FETCH_USERS_REQUEST } from '../actions/userActions';
-import { fetchUsers } from '../api';
-import { User } from '../api';
+import { fetchUsers } from '../api/fetchUsers';
+import { User } from '../api/fetchUsers';
 
 function* fetchUsersSaga() {
   try {

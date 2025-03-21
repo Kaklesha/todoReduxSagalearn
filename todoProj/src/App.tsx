@@ -1,13 +1,14 @@
 import React from 'react';
-import UserList from './components/UserList';
+
 import CreateTask from './components/createTask';
+import TaskList from './components/TaskList';
 
 const App: React.FC = () => {
   return (
     <div>
       <CreateTask/>
-      <UserList />
       
+      <TaskList/>
     </div>
   );
 };

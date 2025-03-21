@@ -4,7 +4,7 @@ import {
     FETCH_USERS_FAILURE,
     UserActionTypes,
   } from '../actions/userActions';
-  import { User } from '../api';
+  import { User } from '../api/fetchUsers';
   
   interface UserState {
     loading: boolean;
