@@ -1,12 +1,12 @@
 import Express, { Request, Response } from "express";
+import { Query } from "express-serve-static-core";
+
 import cors from "cors";
 
 //import { User } from './types/User';
-
-const app = Express();
-app.use(Express.urlencoded({ extended: true }));
-const PORT = 3000;
-
+export interface TypedRequestQuery<T extends Query> extends Express.Request {
+  body: T;
+}
 export interface User {
   id: number;
   name: string;
@@ -18,7 +18,11 @@ export interface Task {
   name: string;
   description?: string;
 }
-// Пример данных
+const app = Express();
+app.use(Express.urlencoded({ extended: true }));
+const PORT = 3000;
+
+//mock data for MVP
 const users: User[] = [
   {
     id: 1,
@@ -33,7 +37,7 @@ const users: User[] = [
     email: "Shanna@melissa.tv",
   },
 ];
-
+//mock data for MVP
 const tasks: Task[] = [
   { id: 1, name: "cut a stuck", description: "take saw for it" },
   { id: 2, name: "wash teeth", description: "buy mouth cream" },
@@ -46,29 +50,37 @@ app.get("/users", (req: Request, res: Response) => {
 app.get("/tasks", (req: Request, res: Response) => {
   res.json(tasks);
 });
-// export interface TypedRequestBody<T> extends Express.Request {
-//   body: T
-// }
 
-import { Query } from 'express-serve-static-core';
+function createNewTask(
+  tasks: Task[],
+  nameTask: string,
+  descriptionTask: string = ""
+) {
+  const lastIDlastTask = tasks.at(-1)?.id;
+  const currentIDlastTask = lastIDlastTask
+    ? lastIDlastTask + 1
+    : (() => {
+        throw new Error("Error when getting last ID of the tasks");
+      })();
 
-export interface TypedRequestQuery<T extends Query> extends Express.Request {
-
-     body: T
-
+  tasks.push({
+    id: currentIDlastTask,
+    name: nameTask,
+    description: descriptionTask,
+  });
+  return currentIDlastTask;
+  //else throw new Error("Error pushing new task to the tasks");
 }
-
 
 app.post(
   "/tasks",
   function (
-    req: TypedRequestQuery<{ username: string, password: string }>,
+    req: TypedRequestQuery<{ name: string; description?: string }>,
     res: Express.Response
   ) {
-    const success = req.body.username === "foo" && req.body.password === "bar";
-    
-    res.status(200).json({ Success: success });
-   // res.status(500).send('Something broke!')
+    const currentIDlastTask = createNewTask(tasks, req.body.name, req.body.description);
+    res.status(200).json({ id: currentIDlastTask });
+    // res.status(500).send('Something broke!')
   }
 );
 

@@ -11,3 +11,14 @@ export interface Task {
   description?: string;
   name: string;
 }
+
+export const postTask = async (newTask:Omit<Task,"id">): Promise<{id:number}> => {
+const response = await fetch("http://localhost:3000/tasks",{
+  method: "POST",
+  headers: {
+      "Content-Type": "application/json",
+  },
+  body: JSON.stringify(newTask),
+});
+return response.json();
+}

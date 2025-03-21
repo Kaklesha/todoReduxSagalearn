@@ -1,4 +1,4 @@
-import { Task } from "../api/fetchTasks";
+import { Task } from "../../api/fetchTasks";
 
 export const FETCH_TASKS_REQUEST = 'FETCH_TASKS_REQUEST';
 export const FETCH_TASKS_SUCCESS = 'FETCH_TASKS_SUCCESS';
@@ -18,7 +18,7 @@ interface FetchTasksFailureAction {
   payload: string;
 }
 
-export type TaskActionTypes =
+export type TaskFetchActionTypes =
   | FetchTasksRequestAction
   | FetchTasksSuccessAction
   | FetchTasksFailureAction;
