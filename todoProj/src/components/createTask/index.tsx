@@ -1,30 +1,43 @@
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+//import { AppState } from "../../store";
+import { postTasksRequest } from "../../actions/taskActions/postTastActions";
+import { UnknownAction } from "@reduxjs/toolkit";
 
 const CreateTask: React.FC = () => {
   const [formData, setFormData] = useState({
-    description: "",
     name: "",
+    description: "",
   });
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setFormData((previousState) => ({
       ...previousState,
-      [name]: value,
+      [name]: `${value}`,
     }));
   }, []);
 
-  const sentTaskBody = useCallback(
+  const dispatch = useDispatch();
+  // const { loading, tasks, error } = useSelector(
+  //   (state: AppState) => state.task
+  // );
+
+  const sendTaskBody = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       console.log("Форма отправлена, но страница не перезагружается!");
       console.dir(formData);
+
+      // useEffect(() => {
+      dispatch(postTasksRequest(formData) as unknown as UnknownAction);
+      // }, [dispatch]);
     },
-    [formData]
+    [dispatch, formData]
   );
 
   return (
-    <form onSubmit={sentTaskBody}>
+    <form onSubmit={sendTaskBody}>
       <label htmlFor="taskName">description</label>
       <input
         type="text"

@@ -39,8 +39,9 @@ const taskReducer = (
       };
     case FETCH_TASKS_FAILURE:
       return {
+        ...state,
         loading: false,
-        tasks: [],
+     //   tasks: [],
         error: action.payload,
       };
       case POST_TASKS_REQUEST:
@@ -56,8 +57,8 @@ const taskReducer = (
         };
       case POST_TASKS_FAILURE:
         return {
+          ...state,
           loading: false,
-          tasks: [],
           error: action.payload,
         };
     default:

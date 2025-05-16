@@ -1,4 +1,4 @@
-import Express, { Request, Response } from "express";
+import Express, { json, Request, Response, urlencoded } from "express";
 import { Query } from "express-serve-static-core";
 
 import cors from "cors";
@@ -19,7 +19,11 @@ export interface Task {
   description?: string;
 }
 const app = Express();
-app.use(Express.urlencoded({ extended: true }));
+//app.use(Express.urlencoded({ extended: true }));
+app.use(cors());
+app.use(json({limit:'100mb'}));
+app.use(urlencoded({extended:true}));
+
 const PORT = 3000;
 
 //mock data for MVP
@@ -53,7 +57,7 @@ app.get("/tasks", (req: Request, res: Response) => {
 
 function createNewTask(
   tasks: Task[],
-  nameTask: string,
+  nameTask: string = "",
   descriptionTask: string = ""
 ) {
   const lastIDlastTask = tasks.at(-1)?.id;
@@ -78,13 +82,14 @@ app.post(
     req: TypedRequestQuery<{ name: string; description?: string }>,
     res: Express.Response
   ) {
+    console.log( req.body)
     const currentIDlastTask = createNewTask(tasks, req.body.name, req.body.description);
     res.status(200).json({ id: currentIDlastTask });
     // res.status(500).send('Something broke!')
   }
 );
 
-app.use(cors());
+
 // Запуск сервера
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
