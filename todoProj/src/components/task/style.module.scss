@@ -1,0 +1,9 @@
+.task_line{
+    display: flex;
+    flex-direction: row;
+    background-color: aquamarine;
+    margin: 1vh;
+    justify-content: space-between;
+    width: clamp(200px,16vw,500px);
+        word-break: break-word;
+}

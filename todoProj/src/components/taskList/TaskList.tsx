@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 
-import { AppState } from '../store';
+import { AppState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { UnknownAction } from '@reduxjs/toolkit';
-import { fetchTasksRequest } from '../actions/taskActions/fetchTaskActions';
+import { fetchTasksRequest } from '../../actions/taskActions/fetchTaskActions';
+import { Task } from '../task/task';
+import style from "./style.module.scss"
 
 const TaskList: React.FC = () => {
   const dispatch = useDispatch();
@@ -19,9 +21,9 @@ const TaskList: React.FC = () => {
   return (
     <div>
       <h1>Task List</h1>
-      <ul>
+      <ul className={style.ul_wrapper}>
         {tasks.map((task) => (
-          <li key={task.id}>{`${task.name} || ${task.description}`}</li>
+          <Task id={task.id} name={task.name} description={task.description}/>
         ))}
       </ul>
     </div>

@@ -38,7 +38,7 @@ const CreateTask: React.FC = () => {
 
   return (
     <form onSubmit={sendTaskBody}>
-      <label htmlFor="taskName">description</label>
+      <label htmlFor="taskName">Name</label>
       <input
         type="text"
         name="name"
