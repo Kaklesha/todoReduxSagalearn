@@ -6,17 +6,17 @@ export const POST_TASKS_FAILURE = 'POST_TASKS_FAILURE';
 
 
 
-interface PostTasksRequestAction {
+export interface PostTasksRequestAction {
   type: typeof POST_TASKS_REQUEST;
   payload: Omit<Task,"id">
 }
 
-interface PostTasksSuccessAction {
+export interface PostTasksSuccessAction {
   type: typeof POST_TASKS_SUCCESS;
   payload: Task;
 }
 
-interface PostTasksFailureAction {
+export interface PostTasksFailureAction {
   type: typeof POST_TASKS_FAILURE;
   payload: string;
 }

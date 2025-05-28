@@ -5,7 +5,7 @@ import {
   fetchTasksFailure,
   fetchTasksSuccess,
 } from "../actions/taskActions/fetchTaskActions";
-import { POST_TASKS_REQUEST, postTasksSuccess, TaskPostActionTypes } from "../actions/taskActions/postTastActions";
+import { POST_TASKS_REQUEST, postTasksFailure, PostTasksRequestAction, postTasksSuccess, TaskPostActionTypes } from "../actions/taskActions/postTastActions";
 
 function* fetchTaskSaga() {
   try {
@@ -20,14 +20,17 @@ function* fetchTaskSaga() {
   }
 }
 
-function* postTaskSaga(action: TaskPostActionTypes) {
+  
+  // | PostTasksSuccessAction
+  // | PostTasksFailureAction;
+function* postTaskSaga(action: PostTasksRequestAction) {
   try {
-    if(action.type !== POST_TASKS_REQUEST) return;
+  // if(action.type !== POST_TASKS_REQUEST) return;
    const response: Pick<Task,'id'> = yield call(postTask,action.payload)
    yield put(postTasksSuccess({...action.payload, ...response}))
   } catch (error) {
     if (error instanceof Error) {
-      yield put(fetchTasksFailure(error.message));
+      yield put(postTasksFailure(error.message));
     } else {
       console.error("An unknown error occurred:", error);
     }
