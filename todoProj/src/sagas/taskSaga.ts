@@ -5,7 +5,7 @@ import {
   fetchTasksFailure,
   fetchTasksSuccess,
 } from "../actions/taskActions/fetchTaskActions";
-import { POST_TASKS_REQUEST, postTasksFailure, PostTasksRequestAction, postTasksSuccess, TaskPostActionTypes } from "../actions/taskActions/postTastActions";
+import { POST_TASKS_REQUEST, postTasksFailure, PostTasksRequestAction, postTasksSuccess } from "../actions/taskActions/postTastActions";
 
 function* fetchTaskSaga() {
   try {

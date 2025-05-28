@@ -23,7 +23,7 @@ const TaskList: React.FC = () => {
       <h1>Task List</h1>
       <ul className={style.ul_wrapper}>
         {tasks.map((task) => (
-          <Task id={task.id} name={task.name} description={task.description}/>
+          <Task key={task.id} name={task.name} description={task.description}/>
         ))}
       </ul>
     </div>
