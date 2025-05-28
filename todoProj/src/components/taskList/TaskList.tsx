@@ -18,12 +18,15 @@ const TaskList: React.FC = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
+  
+
+
   return (
     <div>
       <h1>Task List</h1>
       <ul className={style.ul_wrapper}>
-        {tasks.map((task) => (
-          <Task key={task.id} name={task.name} description={task.description}/>
+        {tasks.map((task, inx) => (
+          <Task key={task.id} name={task.name} description={task.description} index={inx} />
         ))}
       </ul>
     </div>

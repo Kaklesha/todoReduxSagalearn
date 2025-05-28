@@ -21,8 +21,8 @@ function* fetchTaskSaga() {
 }
 
   
-  // | PostTasksSuccessAction
   // | PostTasksFailureAction;
+  // | PostTasksSuccessAction
 function* postTaskSaga(action: PostTasksRequestAction) {
   try {
   // if(action.type !== POST_TASKS_REQUEST) return;
