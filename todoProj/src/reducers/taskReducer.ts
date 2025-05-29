@@ -28,10 +28,20 @@ const initialState: TaskState = {
   tasks: [],
   error: "",
 };
-// function within(from: number, value: number, to: number) {
-//   return Math.
-// }
 function swap<T>(array: T[], inxFirst: number, inxSecond: number): T[] {
+  if (inxSecond == -1) {
+    console.log("uptrade");
+     const secondPart = array.slice(1);
+    secondPart.push(array[inxFirst]);
+    return secondPart;
+  }
+  if (inxSecond == array.length) {
+    console.log("downtrade");
+    const secondPart = array.slice(0, -1);
+    secondPart.unshift(array[inxFirst]);
+    return secondPart;
+  }
+
   console.log("___before____");
   console.log(`inxFirst:${inxFirst} inxSecond:${inxSecond}`);
   console.dir(array);
