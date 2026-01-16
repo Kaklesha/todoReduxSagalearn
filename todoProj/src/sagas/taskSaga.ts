@@ -44,7 +44,7 @@ function* postTaskSaga(action: PostTasksRequestAction) {
   }
 }
 
-function* MoveTaskSaga(action: MoveUDPTaskRequestAction) {
+function* moveTaskSaga(action: MoveUDPTaskRequestAction) {
   try {
     const { index, toward } = action.payload;
     const tasks: Task[] = yield select((state) => state.task.tasks);
@@ -68,5 +68,5 @@ export function* watchFetchTasks() {
   yield takeEvery(FETCH_TASKS_REQUEST, fetchTaskSaga);
 }
 export function* watchMoveTaskSaga() {
-  yield takeEvery(MOVE_UDP_TASK_REQUEST, MoveTaskSaga);
+  yield takeEvery(MOVE_UDP_TASK_REQUEST, moveTaskSaga);
 }
