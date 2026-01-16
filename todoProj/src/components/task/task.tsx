@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./style.module.css";
-import { moveDownTask, moveUpTask } from "../../actions/taskActions/movetask";
+import { moveUDPTask } from "../../actions/taskActions/movetask";
 import { UnknownAction } from "@reduxjs/toolkit";
 
 type Props = {
@@ -11,13 +11,16 @@ type Props = {
 export const Task: React.FC<Props> = (props: Props) => {
   const dispatch = useDispatch();
 
+
   const moveUp = () => {
+    const towardUP=true
     console.log(props)
-    dispatch(moveUpTask(props.index) as unknown as UnknownAction);
+    dispatch(moveUDPTask(props.index, towardUP) as unknown as UnknownAction);
   };
 
   const moveDown = () => {
-    dispatch(moveDownTask(props.index) as unknown as UnknownAction);
+     const towardDOWN=false
+    dispatch(moveUDPTask(props.index, towardDOWN) as unknown as UnknownAction);
   };
 
   return (

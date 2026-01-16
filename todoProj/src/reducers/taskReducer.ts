@@ -5,8 +5,9 @@ import {
   TaskFetchActionTypes,
 } from "../actions/taskActions/fetchTaskActions";
 import {
-  MOVE_DOWN_TASK,
-  MOVE_UP_TASK,
+  MOVE_UDP_TASK_FAILURE,
+  MOVE_UDP_TASK_REQUEST,
+  MOVE_UDP_TASK_SUCCESS,
   MoveTaskActions,
 } from "../actions/taskActions/movetask";
 import {
@@ -28,30 +29,6 @@ const initialState: TaskState = {
   tasks: [],
   error: "",
 };
-function swap<T>(array: T[], inxFirst: number, inxSecond: number): T[] {
-  if (inxSecond == -1) {
-    console.log("uptrade");
-     const secondPart = array.slice(1);
-    secondPart.push(array[inxFirst]);
-    return secondPart;
-  }
-  if (inxSecond == array.length) {
-    console.log("downtrade");
-    const secondPart = array.slice(0, -1);
-    secondPart.unshift(array[inxFirst]);
-    return secondPart;
-  }
-
-  console.log("___before____");
-  console.log(`inxFirst:${inxFirst} inxSecond:${inxSecond}`);
-  console.dir(array);
-  const dump = array[inxFirst];
-  array[inxFirst] = array[inxSecond];
-  array[inxSecond] = dump;
-  console.log("___after____");
-  console.dir(array);
-  return array;
-}
 
 const taskReducer = (
   state = initialState,
@@ -92,20 +69,24 @@ const taskReducer = (
         loading: false,
         error: action.payload,
       };
-    case MOVE_UP_TASK: {
-      const { index } = action.payload;
+    case MOVE_UDP_TASK_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case MOVE_UDP_TASK_SUCCESS: {
       return {
         loading: false,
-        tasks: [...swap(state.tasks, index, index - 1)],
+        tasks: action.payload,
         error: "",
       };
     }
-    case MOVE_DOWN_TASK: {
-      const { index } = action.payload;
+    case MOVE_UDP_TASK_FAILURE: {
       return {
+        ...state,
         loading: false,
-        tasks: [...swap(state.tasks, index, index + 1)],
-        error: "",
+        error: action.payload,
       };
     }
     default:

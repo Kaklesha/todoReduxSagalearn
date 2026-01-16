@@ -1,27 +1,47 @@
-export const MOVE_UP_TASK = "MOVE_UP_TASK";
+import { Task } from "../../api/fetchTasks";
 
-export const MOVE_DOWN_TASK = "MOVE_DOWN_TASK";
+export const MOVE_UDP_TASK_SUCCESS = "MOVE_UDP_TASK_SUCCESS";
 
-export interface MoveUpTaskAction {
-  type: typeof MOVE_UP_TASK;
-  payload: { index: number };
+export const MOVE_UDP_TASK_REQUEST = "MOVE_UDP_TASK_REQUEST";
+
+export const MOVE_UDP_TASK_FAILURE = "MOVE_UDP_TASK_FAILURE";
+
+export interface MoveUDPTaskRequestAction {
+  type: typeof MOVE_UDP_TASK_REQUEST;
+  payload: { index: number; toward: boolean };
 }
-export interface MoveDownTaskAction {
-  type: typeof MOVE_DOWN_TASK;
-  payload: { index: number };
+export interface MoveUDPTaskSuccessAction {
+  type: typeof MOVE_UDP_TASK_SUCCESS;
+  payload: Task[];
+}
+export interface MoveUDPTaskFailureAction {
+  type: typeof MOVE_UDP_TASK_FAILURE;
+  payload: string;
 }
 
-export type MoveTaskActions = MoveUpTaskAction | MoveDownTaskAction;
+export type MoveTaskActions =
+  | MoveUDPTaskSuccessAction
+  | MoveUDPTaskRequestAction
+  | MoveUDPTaskFailureAction;
 
-export const moveUpTask = (index: number): MoveUpTaskAction => {
+export const moveUDPTask = (
+  index: number,
+  toward: boolean
+): MoveUDPTaskRequestAction => {
   console.log(`moveUpTask:${index} `);
   return {
-    type: MOVE_UP_TASK,
-    payload: { index },
+    type: MOVE_UDP_TASK_REQUEST,
+    payload: { index, toward },
   };
 };
 
-export const moveDownTask = (index: number): MoveDownTaskAction => {
-  console.log(`moveDownTask:${index} `);
-  return { type: MOVE_DOWN_TASK, payload: { index } };
+export const moveUDPTaskSuccess = (tasks: Task[]): MoveTaskActions => {
+
+  return { type: MOVE_UDP_TASK_SUCCESS, payload: tasks };
 };
+
+export const moveUDPTaskFailure = (error: string): MoveTaskActions => {
+  console.log(`moveError:${error} `);
+  return { type: MOVE_UDP_TASK_FAILURE, payload: error };
+};
+
