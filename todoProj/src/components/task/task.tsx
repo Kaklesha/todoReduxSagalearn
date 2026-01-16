@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import styles from "./style.module.scss";
+import styles from "./style.module.css";
 import { moveDownTask, moveUpTask } from "../../actions/taskActions/movetask";
 import { UnknownAction } from "@reduxjs/toolkit";
 

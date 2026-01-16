@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UnknownAction } from '@reduxjs/toolkit';
 import { fetchTasksRequest } from '../../actions/taskActions/fetchTaskActions';
 import { Task } from '../task/task';
-import style from "./style.module.scss"
+import style from "./style.module.css"
 
 const TaskList: React.FC = () => {
   const dispatch = useDispatch();
